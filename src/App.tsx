@@ -3,11 +3,12 @@ import { useQuery } from 'react-query';
 
 import Drawer from '@mui/material/Drawer';
 import { HiShoppingCart } from 'react-icons/hi';
+import Cart from './components/Cart/Cart';
+
 
 import logo from './logo.svg';
 import './App.css';
 import ShoppingItem from './components/ShoppingItem/ShoppingItem';
-
 
 export type ProductItem = {
   id: number;
@@ -55,14 +56,14 @@ function App() {
   return (
     <div className="App">
       <Drawer anchor='right' open={cartOpen} onClose={() => setCartOpen(false)}>
-        <div>Panier d'articles</div>
+        <Cart cartItems={cartItems} addToCart={handleAddToCart}/>
       </Drawer>
-      <HiShoppingCart className='cart-button' onClick={() => setCartOpen(true)}>BLA</HiShoppingCart>
+      <HiShoppingCart className='cart-button' onClick={() => setCartOpen(true)}/>
       <div className='items-list'>
-      {data?.products.map(item => (
-            <ShoppingItem item={item}/>
-        ))}
-         </div>
+        {data?.products.map(item => (
+              <ShoppingItem item={item} handleAddToCart={handleAddToCart}/>
+          ))}
+      </div>
     </div>
   );
 }

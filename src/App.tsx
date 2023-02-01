@@ -1,5 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useQuery } from 'react-query';
+
+import Drawer from '@mui/material/Drawer';
+import { HiShoppingCart } from 'react-icons/hi';
 
 import logo from './logo.svg';
 import './App.css';
@@ -13,6 +16,7 @@ export type ProductItem = {
   brand: string;
   price: number;
   thumbnail: string;
+  amount: number;
 };
 
 export type ProductList = {
@@ -24,15 +28,36 @@ const getProducts = async (): Promise<ProductList> =>
 
 
 function App() {
-
+  const [cartOpen, setCartOpen] = useState(false);
+  const [cartItems, setCartItems] = useState([] as ProductItem[]);
   const { data, isLoading, error } = useQuery<ProductList>(
     'products',
     getProducts
   );
-  console.log('DATA', data);
+
+  const getCartAmount = (items: ProductItem[]) =>
+    items.reduce((total: number, item) => total + item.amount, 0);
+
+  const handleAddToCart = (itemSelected: ProductItem) => {
+    setCartItems(prev => {
+      const isItemInCart = prev.find(item => item.id === itemSelected.id);
+      if (isItemInCart) {
+        return prev.map(item =>
+          item.id === itemSelected.id
+            ? { ...item, amount: item.amount + 1 }
+            : item
+        );
+      }
+      return [...prev, { ...itemSelected, amount: 1 }];
+    });
+  };
 
   return (
     <div className="App">
+      <Drawer anchor='right' open={cartOpen} onClose={() => setCartOpen(false)}>
+        <div>Panier d'articles</div>
+      </Drawer>
+      <HiShoppingCart className='cart-button' onClick={() => setCartOpen(true)}>BLA</HiShoppingCart>
       <div className='items-list'>
       {data?.products.map(item => (
             <ShoppingItem item={item}/>

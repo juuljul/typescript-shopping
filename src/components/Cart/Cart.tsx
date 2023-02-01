@@ -5,9 +5,10 @@ import { ProductItem } from '../../App';
 type Props = {
   cartItems: ProductItem[];
   addToCart: (clickedItem: ProductItem) => void;
+  removeFromCart: (id: number) => void;
 };
 
-const Cart: React.FC<Props> = ({ cartItems, addToCart }) => {
+const Cart: React.FC<Props> = ({ cartItems, addToCart, removeFromCart }) => {
   const getCartAmount = (items: ProductItem[]) =>
     items.reduce((acc: number, item) => acc + item.amount * item.price, 0);
 
@@ -20,9 +21,10 @@ const Cart: React.FC<Props> = ({ cartItems, addToCart }) => {
           key={item.id}
           item={item}
           addToCart={addToCart}
+          removeFromCart={removeFromCart}
         />
       ))}
-      <h2>Total: ${getCartAmount(cartItems)}</h2>
+      <h2>Total: {getCartAmount(cartItems)}€</h2>
     </div>
   );
 };

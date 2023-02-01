@@ -36,7 +36,7 @@ function App() {
     getProducts
   );
 
-  const getCartAmount = (items: ProductItem[]) =>
+  const getNumberOfProductsInCart = (items: ProductItem[]) =>
     items.reduce((total: number, item) => total + item.amount, 0);
 
   const handleAddToCart = (itemSelected: ProductItem) => {
@@ -53,10 +53,25 @@ function App() {
     });
   };
 
+  const handleRemoveFromCart = (id: number) => {
+    setCartItems(prev =>
+      prev.reduce((acc, item) => {
+        if (item.id === id) {
+          if (item.amount === 1) return acc;
+          return [...acc, { ...item, amount: item.amount - 1 }];
+        } else {
+          return [...acc, item];
+        }
+      }, [] as ProductItem[])
+    );
+  };
+
   return (
     <div className="App">
       <Drawer anchor='right' open={cartOpen} onClose={() => setCartOpen(false)}>
-        <Cart cartItems={cartItems} addToCart={handleAddToCart}/>
+        <Cart cartItems={cartItems} 
+              addToCart={handleAddToCart} 
+              removeFromCart={handleRemoveFromCart}/>
       </Drawer>
       <HiShoppingCart className='cart-button' onClick={() => setCartOpen(true)}/>
       <div className='items-list'>

@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 
 import logo from './logo.svg';
 import './App.css';
-import ShoppingItem from './components/ShoppingItem';
+import ShoppingItem from './components/ShoppingItem/ShoppingItem';
 
 
 export type ProductItem = {

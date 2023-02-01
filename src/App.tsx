@@ -74,6 +74,7 @@ function App() {
               removeFromCart={handleRemoveFromCart}/>
       </Drawer>
       <HiShoppingCart className='cart-button' onClick={() => setCartOpen(true)}/>
+      <div className='number-products'>{getNumberOfProductsInCart(cartItems)}</div>
       <div className='items-list'>
         {data?.products.map(item => (
               <ShoppingItem item={item} handleAddToCart={handleAddToCart}/>

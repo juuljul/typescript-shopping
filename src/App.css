@@ -21,6 +21,19 @@
 
 }
 
+.number-products {
+  position: fixed;
+  z-index: 200;
+  right: 10px;
+  top: 55px;
+  padding: 6px 10px;
+  background-color: #d12828;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 30px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

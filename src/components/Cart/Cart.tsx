@@ -13,9 +13,9 @@ const Cart: React.FC<Props> = ({ cartItems, addToCart, removeFromCart }) => {
     items.reduce((acc: number, item) => acc + item.amount * item.price, 0);
 
   return (
-    <div>
+    <div className='container'>
       <h2>Panier</h2>
-      {cartItems.length === 0 ? <p>Pas d'articles dans le panier</p> : null}
+      {cartItems.length === 0 ? <div className='no-article'>Pas d'articles dans le panier</div> : null}
       {cartItems.map(item => (
         <CartItem
           key={item.id}

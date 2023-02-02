@@ -1,4 +1,6 @@
 import { ProductItem } from '../../App';
+import './CartItem.css';
+
 
 type Props = {
   item: ProductItem;
@@ -7,20 +9,21 @@ type Props = {
 };
 
 const CartItem: React.FC<Props> = ({ item, addToCart, removeFromCart }) => (
-  <div>
+  <div className='container'>
     <div>
-      <h3>{item.title}</h3>
-        <p>Prix: {item.price}€</p>
-        <p>Total: {(item.amount * item.price)}€</p>
+      <div className='title'>{item.title}</div>
+      <img src={item.thumbnail} alt={item.title} />
+
+      <div className='prix-total'>
+        <p className='prix'>Prix: {item.price}€</p>
+        <p className='prix'>Total: {(item.amount * item.price)}€</p>
+      </div>
+      <div className='buttons'>
+        <button onClick={() => removeFromCart(item.id)}>-</button>
         <p>{item.amount}</p>
-        <button onClick={() => addToCart(item)}>
-          +
-        </button>
-        <button onClick={() => removeFromCart(item.id)}>
-          -
-        </button>
+        <button onClick={() => addToCart(item)}>+</button>
+      </div>
     </div>
-    <img src={item.thumbnail} alt={item.title} />
   </div>
 );
 
